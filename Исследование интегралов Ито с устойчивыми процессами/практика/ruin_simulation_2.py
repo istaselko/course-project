@@ -93,10 +93,12 @@ plotted_survived = False
 
 for j in range(100):  # Рисую только 100, чтобы не перегрузить график
     if np.any(U_trajectories[j, :] < 0):
+        ruin_idx = np.argmax(U_trajectories[j, :] < 0)
+
         label = "Разорение" if not plotted_ruined else ""
         plt.plot(
-            time_grid,
-            U_trajectories[j, :],
+            time_grid[: ruin_idx + 1],
+            U_trajectories[j, : ruin_idx + 1],
             color="red",
             alpha=0.6,
             linewidth=1,
